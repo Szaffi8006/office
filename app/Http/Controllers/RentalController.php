@@ -8,6 +8,20 @@ use App\Models\Rental;
 
 class RentalController extends Controller
 {
+    
+    public function index() {
+
+        $rentals = Rental::all();
+        return response()->json( $rentals );
+    }
+
+
+    public function rent(Request $request, $id) {
+
+        $rental = Rental::find( $id );
+        return response()->json( $rental );
+    }
+    
     public function store(RentalRequest $request) {
 
         $request->validated(); 
@@ -31,6 +45,13 @@ class RentalController extends Controller
         ]);
 
         return response()->json( $bookings );
-       
+      
+    }
+
+    public function destroy(Request $request, $id) {
+
+        $rental = Rental::find( $id )->delete();
+        // $rental->delete();
+        // return response()->json( $rental );
     }
 }
